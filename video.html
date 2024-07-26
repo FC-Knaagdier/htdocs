@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodenttube</title>
+  <link rel="stylesheet" href="code/bootstrap.min.css">
+  <meta referer="no-referrer">
+  <link rel="stylesheet" href="layout.css">
+<style>
+    .video-button {
+      font-size: large;
+      font-weight: bolder;
+      margin: 5px;
+      text-align: center;
+      text-decoration: none;
+      color: greenyellow;
+      cursor: pointer;
+      word-wrap: break-word;
+      display: block;
+      padding: 10px;
+      background-color: #654321;
+      border-radius: 5px;
+      max-width: 100%;
+    }
+    .playlist-item {
+      margin: 0px 0;
+      text-align: left;
+      display: flex;
+      justify-content: left;
+    }
+    .sticky-buttons {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      right: 0;
+      background-color: white;
+      padding: 10px;
+      z-index: 1000;
+      width: 25%; /* Adjust width as needed */
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      height: 100vh; /* Full height of viewport */
+      overflow: hidden;
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #playlist {
+      list-style-type: none;
+      padding: 0;
+      width: 100%;
+      height: 35vh; /* Adjust height as needed */
+      overflow-y: auto;
+    }
+    video {
+      max-height: 300px; /* Adjust video height as needed */
+      width: auto;
+    }
+  </style>
+</head>
+<body style="overflow: hidden; background-image: url(pictures/fcknaagdierlogo); background-repeat: no-repeat; background-size: cover;">
+  <h1 style="color: #654321; -webkit-text-stroke: 3.5px darkgreen; text-align: center; font-size: 50px;">Rodenttube</h1>
+  <div class="container">
+    <div class="main-content">
+      <div id="song-box">
+        <div>
+          <video class="video" id="audioenvideo" autoplay>
+            <source src=""></source>
+            Your browser does not support the video format.
+          </video>
+        </div>
+        <ul id="playlist">
+          <!-- The playlist items will be dynamically added here -->
+        </ul>
+      </div>
+    </div>
+    <div class="sticky-buttons">
+      <a id="play" class="video-button" onclick="playVideo()">Play</a>
+      <a class="video-button" onclick="pause()">Pause</a>
+      <a class="video-button" id="video" onclick="playAudio()">Audio</a>
+      <a class="video-button" href="playlist.html">Playlist</a>
+    </div>
+  </div>
+  
+  <script>
+    let audioList = [
+    "videos/ApplewilManchesterUnitedovernemenmeme.mp4",
+ "videos/HamsterAdajawordtgepest.mp4",
+ "videos/JakeDankwoordheeftgezegddathijhomois.mp4",
+ "videos/Knaagdierdag.mp4",
+ "videos/KnaagdierlaatgrafsteenmakenvaninternetExplorer.mp4",
+ "videos/Labelwilsamenwerken.mp4",
+ "videos/RadiovijfdrieachtvoorprinsesMaximafoundation.mp4",
+ "videos/Siebertvanhoutenheeftfraudegepleegdmethoutkapjes.mp4",
+ "videos/StichtingdeknoevelinMaastricht.mp4",
+ "videos/WatkanjelerenvaneenInstagramvideovandaughtersdiary.mp4",
+ "videos/Wijalsknaagdierenzeggennietéén.mp4",
+ "videos/Wijalsknaagdierenzeggenniettwee.mp4"
+
+    ];
+
+    let audioElement = document.getElementById("audioenvideo");
+    let currentIndex = 0;
+
+    function playVideo() {
+      audioElement.src = audioList[currentIndex];
+      audioElement.play();
+    }
+
+    function pause() {
+      audioElement.pause();
+    }
+
+    function playReclame() {
+      window.location.href = ("playreclame.html");
+    }
+
+    function playAudio() {
+      window.location.href = ("index.html");
+    }
+
+    function playSpecificVideo(index) {
+      currentIndex = index;
+      playVideo();
+    }
+
+    function createPlaylist() {
+      let playlist = document.getElementById('playlist');
+      audioList.forEach((video, index) => {
+        let listItem = document.createElement('li');
+        listItem.className = 'playlist-item';
+
+        let button = document.createElement('a');
+        button.innerText = video.split('/').pop().replace(".mp4", "");
+        button.className = 'video-button';
+        button.onclick = () => playSpecificVideo(index);
+
+        // Check if the title is too long and add a <br> if necessary
+        if (button.innerText.length > 20) { // Adjust the length as needed
+          let parts = button.innerText.match(/.{1,20}/g);
+          button.innerHTML = parts.join('<br>');
+        }
+
+        listItem.appendChild(button);
+        playlist.appendChild(listItem);
+      });
+    }
+
+    window.onload = createPlaylist;
+  </script>
+</body>
+</html>
